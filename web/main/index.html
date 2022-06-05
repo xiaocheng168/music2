@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatPlay - 主页</title>
+    <!--
+        UI框架  PrimeVue2.9.2 UI
+    -->
+    <!-- 硬依赖库 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/static/ui/vue2.js"></script>
+    <!-- 引入组件库 -->
+    <script src="/static/ui/ui/index.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="/static/ui/ui/theme-chalk/index.css">
+    <!-- Login Css -->
+    <link rel="stylesheet" href="/static/css/clear.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <!-- Load Js -->
+    <script src="/static/js/config.js" defer></script>
+    <script src="/static/js/cookie.js"></script>
+    <script src="./js/app.js" defer></script>
+</head>
+
+<body>
+    <div id="main-catplay-app">
+        <div class="main-catplay-header-box">
+            <h1 class="header-title"></h1>
+            <el-tooltip class="item" effect="light" :content="user.name" placement="bottom-start">
+                <el-avatar src="/static/image/head.png" class="user-head"></el-avatar>
+            </el-tooltip>
+        </div>
+        <el-tabs v-model="main.pane" class="mini-content-box" type="border-card" tab-position="left">
+            <el-tab-pane label="首页" v-loading="main.loading" name="home">
+                <div class="main-index-box">
+                    <el-autocomplete @keyup.enter.native="soMusicBtn" prefix-icon="el-icon-search" class="soMusicText" :fetch-suggestions="soMusic" v-model="main.soContent.text" placeholder="搜索音乐">
+                    </el-autocomplete>
+                    <div class="select-server-box">
+                        <el-radio label="1" v-model="main.soContent.soServer">网易云音乐</el-radio>
+                        <el-radio label="2" v-model="main.soContent.soServer">QQ音乐</el-radio>
+                        <el-radio label="3" v-model="main.soContent.soServer">酷狗音乐</el-radio>
+                    </div>
+                    <!-- 搜索列表 -->
+                    <div class="mini-so-list-box">
+                        <el-table class="ni-so-box" @cell-dblclick="clickPlayMusic" border class="so-list" :data="main.soContent.soBackData">
+                            <el-table-column prop="name" label="歌名">
+                                <!-- 歌名 -->
+                                <template slot-scope="scope">
+                                    <i class="el-icon-video-play" style="margin-right: 10px"></i>
+                                    <el-link type="info">
+                                        <span>{{ scope.row.name }}</span>
+                                    </el-link>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="authors" label="作者">
+                            </el-table-column>
+                            <el-table-column prop="playTime" label="时长">
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                </div>
+            </el-tab-pane>
+            <!-- 播放器页 -->
+            <el-tab-pane label="播放器" name="player">
+                <!-- 封面与台词 -->
+                <el-card class="main-player-box">
+                    <div class="mini-player-left-box">
+                        <el-image class="music-image" src="/static/image/head.png"></el-image>
+                    </div>
+                    <!-- 歌词 -->
+                    <div class="mini-player-right-box">
+                        <p class="music-name">{{player.playData.name}} - {{player.playData.authors}}</p>
+                        <p class="lyric-title">{{player.the_lyrics}}</p>
+                    </div>
+                </el-card>
+                <!-- 播放列表 -->
+                <el-card class="main-player-right-box">
+                    <el-table :data="player.list" @cell-dblclick="clickPlayMusic">
+                        <el-table-column prop="name" name="name" label="歌曲">
+                            <!-- 歌名 -->
+                            <template slot-scope="scope">
+                                <i class="el-icon-video-play" style="margin-right: 10px"></i>
+                                <el-link type="info">
+                                    <span>{{ scope.row.name }}</span>
+                                    <span>{{ scope.row.authors }}</span>
+                                    <span>{{ scope.row.playTime }}</span>
+                                </el-link>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-card>
+            </el-tab-pane>
+        </el-tabs>
+
+        <el-slider class="currentTime" v-model="player.curr" :max="player.duration" @change="changeTime">
+        </el-slider>
+        <!-- 播放器控制器 -->
+        <div class="main-player-select">
+            <!-- 进度条 -->
+            <el-button @click="onUp" class="play-up el-icon-caret-left"></el-button>
+            <el-button @click="onPlay(0)" v-if="player.play == false" class="play-pause el-icon-video-play">
+            </el-button>
+            <el-button @click="onPlay(1)" v-else class="play-pause el-icon-video-pause"></el-button>
+            <el-button @click="onDown" class="play-down el-icon-caret-right"></el-button>
+            <el-slider class="audio-volume" v-model="player.volume" :max="100" @input="changeVolume">
+            </el-slider>
+        </div>
+
+        <!-- Player Core -->
+        <audio @timeupdate="playing" @play="playMusic" @pause="pauseMusic" @ended="playEnded" id="main-player" autoplay="autoplay" :src="player.url" style="opacity: 0;"></audio>
+    </div>
+</body>
+
+</html>
+
+</html>

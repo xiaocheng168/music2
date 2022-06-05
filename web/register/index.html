@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatPlay - 注册 -w- 欢迎来到新世界</title>
+    <!-- 硬依赖库 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/static/ui/vue2.js"></script>
+    <!-- 引入组件库 -->
+    <script src="/static/ui/ui/index.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="/static/ui/ui/theme-chalk/index.css">
+    <!-- Login Css -->
+    <link rel="stylesheet" href="./css/register.css">
+    <!-- Load Vue App -->
+    <script src="/static/js/config.js" defer></script>
+    <script src="./js/app.js" defer></script>
+</head>
+
+<!-- 注册 -->
+
+<body>
+    <div id="main-catplay-register-app">
+        <div class="mini-header-box">
+            <h1 class="header-title"></h1>
+        </div>
+        <div class="mini-input-box">
+            <el-input class="username input-text" v-model="username" placeholder="输入账号密码" @keyup.enter.native="login">
+            </el-input>
+            <el-input show-password class="password input-text" v-model="password" placeholder="登录密码" @keyup.enter.native="login">
+            </el-input>
+            <el-input show-password class="password input-text" v-model="confirm_password" placeholder="确认登录密码" @keyup.enter.native="login">
+            </el-input>
+            <el-button type="success" class="login-btn " @click.native="login ">成为新用户~</el-button>
+        </div>
+        <h6 class="permission ">Welcome to CatPlay! Free Listen Musics!</h6>
+        <h6 class="permission ">CatPlay 2022 - 至今年份</h6>
+    </div>
+</body>
+
+</html>
+
+</html>

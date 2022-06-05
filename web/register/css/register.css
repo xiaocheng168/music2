@@ -1,0 +1,57 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "微软雅黑";
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to top, #54795c, #f8f8f8);
+}
+#main-catplay-register-app {
+  width: 360px;
+  height: 465px;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px 10px rgba(20, 144, 68, 0.383);
+  border-radius: 15px;
+  overflow: hidden;
+  transition-duration: 0.25s;
+}
+#main-catplay-register-app .mini-header-box .header-title {
+  text-align: center;
+  height: 100px;
+  line-height: 100px;
+  border-bottom: 1px #088163 solid;
+}
+#main-catplay-register-app .mini-header-box .header-title::before {
+  content: "CatPlay 🚀 加入";
+  color: rgba(42, 105, 66, 0.616);
+}
+#main-catplay-register-app .mini-input-box {
+  width: 80%;
+  overflow: hidden;
+  margin: 30px auto;
+}
+#main-catplay-register-app .mini-input-box .username,
+#main-catplay-register-app .mini-input-box .password {
+  margin: 10px 0;
+}
+#main-catplay-register-app .mini-input-box .login-btn {
+  display: block;
+  width: 120px;
+  margin: 20px auto;
+}
+#main-catplay-register-app .permission {
+  text-align: center;
+  margin: 5px 0;
+}
+@media screen and (max-width: 500px) {
+  #main-catplay-register-app {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0px;
+  }
+}
